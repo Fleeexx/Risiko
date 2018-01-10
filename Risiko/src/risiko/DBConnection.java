@@ -7,7 +7,10 @@ package risiko;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +22,7 @@ public class DBConnection {
     
     public DBConnection(){
     }
-    public boolean connect(String name){
+    public boolean startConnection(String name){
         try{
             String url = "jdbc:mysql://localhost:3306/" + name + "?connectTimeout=3000";
             conn = DriverManager.getConnection(url, "root", "");
@@ -28,10 +31,36 @@ public class DBConnection {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-//        finally {
-//            closeConnection();
-//        }
-        
         return false;
+    }   
+    public void closeConnection(){
+        try{
+            if(conn != null){
+                conn.close();
+            }
+        }
+        catch(SQLException e){
+            System.out.print(e.getMessage());
+        }
     }
+    public ResultSet executeSQLQuery(String sql){
+        ResultSet rs = null;
+        try{
+            rs = conn.createStatement().executeQuery(sql);
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return rs;
+    }
+     public void insert(String sql){
+         Statement st = null;
+         try{
+             st = conn.createStatement();
+             st.executeUpdate(sql);
+             st.close();
+         }
+            catch(Exception e){
+         }
+    } 
 }
+
