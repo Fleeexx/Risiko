@@ -1,7 +1,7 @@
 package risiko;
 
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,6 +14,8 @@ import javax.swing.JFrame;
  * @author Lukas
  */
 public class Gui extends JFrame {
+    
+    private JLabel[] category1_
     
     public Gui() {
         

@@ -1,0 +1,2 @@
+Class.forName("com.mysql.jdbc.Driver").newInstance();
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/haushaltsbuch?connectTimeout=3000", "root", "");
