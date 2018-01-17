@@ -24,7 +24,7 @@ public class DBConnection {
     }
     public void startConnection(String name){
         try{
-            String url = "jdbc:mysql://localhost:3306/" + name + "?connectTimeout=3000";
+            String url = "jdbc:sqlite:"  + name;
             conn = DriverManager.getConnection(url, "root", "");
             System.out.print("Connection to SQLite has been established");
         }
