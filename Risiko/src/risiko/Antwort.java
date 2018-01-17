@@ -11,13 +11,12 @@ package risiko;
  */
 public class Antwort {
     private String answer;
-    private boolean isAnswerCorrect;
+    private Boolean isAnswerCorrect;
     
-    private Antwort(String answer, boolean isAnswerCorrect){
+    Antwort(String answer, Boolean isItTrue){
         this.answer = answer;
-        this.isAnswerCorrect = isAnswerCorrect;
+        
     }
-
     public String getAnswer() {
         return answer;
     }

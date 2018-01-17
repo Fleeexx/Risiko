@@ -22,7 +22,7 @@ public class DBConnection {
     
     public DBConnection(){
     }
-    public boolean startConnection(String name){
+    public void startConnection(String name){
         try{
             String url = "jdbc:mysql://localhost:3306/" + name + "?connectTimeout=3000";
             conn = DriverManager.getConnection(url, "root", "");
@@ -31,7 +31,6 @@ public class DBConnection {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return false;
     }   
     public void closeConnection(){
         try{
