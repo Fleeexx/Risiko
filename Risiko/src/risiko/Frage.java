@@ -19,9 +19,10 @@ public class Frage {
     private String frage;
     private ArrayList<Antwort> antworten;
     
-    public Frage(String kategorie, int points) {
+    public Frage(String kategorie, int points, int id) {
         this.kategorie = kategorie;
         this.points = points;
+        this.id = id;
     }
 
     /**
