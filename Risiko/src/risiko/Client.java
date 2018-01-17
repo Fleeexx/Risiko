@@ -7,6 +7,7 @@ package risiko;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -17,9 +18,10 @@ public class Client {
     
    private DBConnection dbConnection;
     
+   
     public Client(){
         dbConnection = new DBConnection();
-        dbConnection.startConnection("risiko");
+        dbConnection.startConnection("db/chinook.db");
     }
     
     public ArrayList<Antwort> getAntworten(int id){
@@ -68,6 +70,34 @@ public class Client {
                 }
             }
         return frage;
+    }
+    public void insertSpieler(Spieler spieler){
+
+        dbConnection.insert("INSERT INTO spieler (score, name) VALUES (" + spieler.getScore() + ", '" + spieler.getName() + "');");
+    }
+    public Spieler[] getTopZehn(String kategorie, int points) {
+    Spieler[] spieler = new Spieler[10];
+    ResultSet rs = null;
+    try{
+        rs = dbConnection.executeSQLQuery("SELECT * FROM spieler ORDER BY points DESC LIMIT 10;");
+    }catch(Exception e){  
+    }
+        if (rs!=null){
+            try{
+                int i = 0;
+                while (rs.next()) {
+                    if(rs.getString("points") != null){
+                        spieler[i] = new Spieler(rs.getString("name"), rs.getInt("points"));
+                    }  
+                    i++;
+                }
+                rs.getStatement().close();
+                rs.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+        return spieler;
     }
     
 }
