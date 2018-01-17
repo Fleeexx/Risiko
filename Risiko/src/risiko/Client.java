@@ -26,14 +26,14 @@ public class Client {
         ResultSet rs = null;
         ArrayList<Antwort> antworten = new ArrayList();
         try{
-            rs = dbConnection.executeSQLQuery("");
+            rs = dbConnection.executeSQLQuery("SELECT * FROM antwort WHERE f_id = '" + id + "';");
         }catch(Exception e){  
         }
             if (rs!=null){
                 try{
                     while (rs.next()) {
                         if(rs.getString("frage") != null){
-                            antworten.add(new Antwort(rs.getString("frage"),rs.getBoolean("isItTrue")));   //besprechen wegen string
+                            antworten.add(new Antwort(rs.getString("frage"),rs.getBoolean("iscorrect")));   //besprechen wegen string
                         }    
                     }
                     rs.getStatement().close();
@@ -51,14 +51,14 @@ public class Client {
         ResultSet rs = null;
         ArrayList<Antwort> antworten = new ArrayList();
         try{
-            rs = dbConnection.executeSQLQuery("");
+            rs = dbConnection.executeSQLQuery("SELECT * FROM frage WHERE kategorie = '" + kategorie + "' AND points = '"+ points +"';");
         }catch(Exception e){  
         }
             if (rs!=null){
                 try{
                     while (rs.next()) {
                         if(rs.getString("frage") != null){
-                            frage = new Frage(rs.getString("kategorie"), rs.getInt("punkte"));
+                            frage = new Frage(rs.getString("kategorie"), rs.getInt("punkte"), rs.getInt("a_id"));
                         }    
                     }
                     rs.getStatement().close();
