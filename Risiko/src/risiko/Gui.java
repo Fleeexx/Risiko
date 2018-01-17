@@ -21,13 +21,15 @@ public class Gui extends JFrame implements MouseListener {
     
     private final String[] points = new String[] {"100", "200", "300", "400", "500", "600"};
     private JLabel[][] buttons;
-    private JLabel title, highscore;
+    private JLabel[] highscore;
+    private JLabel title;
     private JPanel p_main;
     
     public Gui() {
     
         initializeFrame();
         initializeButtonArray();
+        initializeLabels();
         
     }
     
@@ -94,6 +96,10 @@ public class Gui extends JFrame implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent me) {
+    }
+
+    private void initializeLabels() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
