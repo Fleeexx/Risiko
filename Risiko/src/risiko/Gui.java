@@ -58,6 +58,12 @@ public class Gui extends JFrame implements MouseListener {
             }
         }
     }
+    
+    private void initializeLabels() {
+        title = new JLabel();
+        title.setBounds(0, 0, 0, 0);
+         
+    }
 
     @Override
     public void mouseClicked(MouseEvent me) {
@@ -96,10 +102,6 @@ public class Gui extends JFrame implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent me) {
-    }
-
-    private void initializeLabels() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
