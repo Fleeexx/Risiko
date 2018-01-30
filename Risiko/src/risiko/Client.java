@@ -27,54 +27,54 @@ public class Client {
     public ArrayList<Antwort> getAntworten(int id){
         ResultSet rs = null;
         ArrayList<Antwort> antworten = new ArrayList();
-        try{
+        try {
             rs = dbConnection.executeSQLQuery("SELECT * FROM antwort WHERE f_id = '" + id + "';");
-        }catch(Exception e){  
+        } catch(Exception e) {
         }
-            if (rs!=null){
+            if (rs!=null) {
                 try{
                     while (rs.next()) {
                         if(rs.getString("frage") != null){
-                            antworten.add(new Antwort(rs.getString("frage"),rs.getBoolean("iscorrect")));   //besprechen wegen string
+                            antworten.add(new Antwort(rs.getString("frage"), rs.getBoolean("iscorrect")));   //besprechen wegen string
                         }    
                     }
                     rs.getStatement().close();
                     rs.close();
-                }catch(SQLException ex){
+                } catch(SQLException ex) {
                     ex.printStackTrace();
                 }
             }
         return antworten;
     }
     
-    
     public Frage getFrage(String kategorie, int points) {
         Frage frage = null;
         ResultSet rs = null;
         ArrayList<Antwort> antworten = new ArrayList();
-        try{
-            rs = dbConnection.executeSQLQuery("SELECT * FROM frage WHERE kategorie = '" + kategorie + "' AND points = '"+ points +"';");
-        }catch(Exception e){  
+        try {
+            rs = dbConnection.executeSQLQuery("SELECT * FROM frage WHERE kategorie = '" + kategorie + "' AND points = '" + points + "';");
+        } catch(Exception e) {  
         }
             if (rs!=null){
                 try{
                     while (rs.next()) {
-                        if(rs.getString("frage") != null){
+                        if(rs.getString("frage") != null) {
                             frage = new Frage(rs.getString("kategorie"), rs.getInt("punkte"), rs.getInt("a_id"));
-                        }    
+                        }
                     }
                     rs.getStatement().close();
                     rs.close();
-                }catch(SQLException ex){
+                } catch(SQLException ex) {
                     ex.printStackTrace();
                 }
             }
         return frage;
     }
-    public void insertSpieler(Spieler spieler){
-
+    
+    public void insertSpieler(Spieler spieler) {
         dbConnection.insert("INSERT INTO spieler (score, name) VALUES (" + spieler.getScore() + ", '" + spieler.getName() + "');");
     }
+    
     public Spieler[] getTopZehn(String kategorie, int points) {
     Spieler[] spieler = new Spieler[10];
     ResultSet rs = null;

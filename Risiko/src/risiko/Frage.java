@@ -17,7 +17,6 @@ public class Frage {
     private int points;
     private int id;
     private String frage;
-    private ArrayList<Antwort> antworten;
     
     public Frage(String kategorie, int points, int id) {
         this.kategorie = kategorie;
@@ -80,21 +79,6 @@ public class Frage {
     public void setFrage(String frage) {
         this.frage = frage;
     }
-
-    /**
-     * @return the antworten
-     */
-    public ArrayList<Antwort> getAntworten() {
-        return antworten;
-    }
-
-    /**
-     * @param antworten the antworten to set
-     */
-    public void setAntworten(ArrayList<Antwort> antworten) {
-        this.antworten = antworten;
-    }
-    
     
     
 }

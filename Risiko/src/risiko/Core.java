@@ -7,6 +7,8 @@ package risiko;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,31 +19,33 @@ import java.util.logging.Logger;
 public class Core {
     
     private Gui gui;
-    private DBConnection dbconnection;
+    private Client client;
+    private int label_correctAnwser;
+    private Random rnd;
     
     public Core(Gui gui) {
         this.gui = gui;
-        dbconnection = new DBConnection();
-        dbconnection.startConnection("risiko.db");
+        client = new Client();
+        rnd = new Random();
     }
     
-    public void getFrage(int points, int kategorie) {
-        ResultSet rs = dbconnection.executeSQLQuery("SELECT * FROM frage WHERE points = " + (points + 100) + " AND kategorie = '" + Gui.KATEGORIEN[kategorie] + "';");
-        Frage f = null;
-        try {
-            f = new Frage(rs.getString("kategorie"), rs.getInt("points"), rs.getInt("id"));
-            rs.close();
-        } catch (SQLException ex) {
-            System.out.println("[FEHLER] Frage konnte nicht aus der Datenbank geholt werden!");
+    public void givePlayerNewQuestion(int points, int kategorie) {
+        Frage frage = client.getFrage(Gui.KATEGORIEN[kategorie], points);
+        ArrayList<Antwort> antworten_list = client.getAntworten(frage.getId());
+        String[] antworten = new String[4];
+        for (int i = 0; i < 4; i++) {
+            int r = rnd.nextInt(4);
+            // TODO
+            if (antworten[r] == null) {
+                antworten[r] = antworten_list.get(i).getAnswer();
+            } else {
+                i--;
+            }
         }
-        
-        rs = dbconnection.executeSQLQuery("SELECT * FROM antworten as a, fragen as f WHERE a.f_id = f.f_id");
-        try {
-            
-        } catch (SQLException ex) {
-            System.out.println("[FEHLER] Antworten konnten nicht aus der Datenbank geholt werden!");
-        }
+        gui.setAntworten(antworten);
         // Gui ansteuern, Fragen und Antworten mit Setter setzen
+        //setFrage
+        //setAntworten (String[])
     }
     
     
