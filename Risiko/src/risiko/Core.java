@@ -20,11 +20,11 @@ public class Core {
     
     private Gui gui;
     private Client client;
-    private int label_correctAnwser;
+    private int correctAnwser;
     private Random rnd;
     
-    public Core(Gui gui) {
-        this.gui = gui;
+    public Core() {
+        gui = new Gui(this);
         client = new Client();
         rnd = new Random();
     }
@@ -38,6 +38,9 @@ public class Core {
             // TODO
             if (antworten[r] == null) {
                 antworten[r] = antworten_list.get(i).getAnswer();
+                if (antworten_list.get(i).getIsAnswerCorrect()) {
+                    correctAnwser = r;
+                }
             } else {
                 i--;
             }
@@ -47,6 +50,12 @@ public class Core {
         //setFrage
         //setAntworten (String[])
     }
+    
+    public Boolean isPlayerAnwserCorrect(int pos) {
+        return (pos == correctAnwser);
+    }
+    
+    
     
     
 }

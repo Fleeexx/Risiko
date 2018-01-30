@@ -27,17 +27,21 @@ public class Gui extends JFrame implements MouseListener {
     private JLabel[] l_scoreboard_infos, b_question_question;
     private JLabel l_main_title, l_question_title;
     private JPanel p_main, p_question, p_scoreboard;
+    private Core core;
     
-    public Gui() {
+    public Gui(Core core) {
+        this.core = core;
         initializeFrameMain();
         initializePanelMain();
         initializePanelQuestion();
         initializePanelScoreboard();
         setVisible(true);
     }
+    
     public static void main(String[] args) {
-        Gui g = new Gui();
+        Core core = new Core();
     }
+    
     public void initializePanelMain() {
         //Panel
         p_main = new JPanel();
@@ -189,7 +193,10 @@ public class Gui extends JFrame implements MouseListener {
             }
         }
         for (int i = 0; i < 4; i++) {
-            if(b_question_question[i] == me.getSource()){
+            if(b_question_question[i] == me.getSource()) {
+                if (core.isPlayerAnwserCorrect(i)) {
+                    
+                }
                 p_main.setVisible(true);
                 p_question.setVisible(false);
             }
