@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -65,6 +67,17 @@ public class Client {
                 }
             }
         return frage;
+    }
+    
+    public void saveSpieler(Spieler spieler) {
+        ResultSet rs = dbConnection.executeSQLQuery("SELECT s_id as id FROM spieler ORDER BY s_id DESC LIMIT 1;");
+        int id = -1;
+       try {
+           rs.next();
+           id = rs.getInt(id);
+       } catch (SQLException ex) {
+       }
+        dbConnection.insert("UPDATE spieler SET score = " + spieler.getScore() + " WHERE s_id = " + id + ";");
     }
     
     public void insertSpieler(Spieler spieler) {

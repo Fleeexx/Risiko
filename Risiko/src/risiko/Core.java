@@ -30,12 +30,18 @@ public class Core {
         rnd = new Random();
     }
     
-    public void erstelleNeuenSpieler(String name) {
+    // Spieler-Methoden
+    //  insertSpieler --> Neuen Spieler erstellen
+    //  saveSpieler --> den zuletzt angelegten Spieler speichern
+    
+    
+    
+    public void createNeuenSpieler(String name) {
         gui_sp = new Spieler(name);
-        
+        client.insertSpieler(gui_sp);
     }
     
-    public void gebeSpielerNeueFrage(int points, int kategorie) {
+    public void giveSpielerNeueFrage(int points, int kategorie) {
         Frage frage = client.getFrage(Gui.KATEGORIEN[kategorie], points);
         ArrayList<Antwort> antworten_list = client.getAntworten(frage.getId());
         String[] antworten = new String[4];
@@ -51,13 +57,11 @@ public class Core {
                 i--;
             }
         }
+        gui.setFrage(frage.getFrage());
         gui.setAntworten(antworten);
-        // Gui ansteuern, Fragen und Antworten mit Setter setzen
-        //setFrage
-        //setAntworten (String[])
     }
     
-    public Boolean istSpielerAntwortRichtig(int pos) {
+    public Boolean isSpielerAntwortRichtig(int pos) {
         return (pos == gui_correctAnwser);
     }
     

@@ -20,8 +20,9 @@ public class DBConnection {
     
     private Connection conn = null;
     
-    public DBConnection(){
+    public DBConnection() {
     }
+    
     public void startConnection(String name){
         try{
             String url = "jdbc:sqlite:"  + name;
@@ -31,35 +32,36 @@ public class DBConnection {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-    }   
-    public void closeConnection(){
-        try{
+    }
+    
+    public void closeConnection() {
+        try {
             if(conn != null){
                 conn.close();
             }
-        }
-        catch(SQLException e){
+        } catch(SQLException e) {
             System.out.print(e.getMessage());
         }
     }
-    public ResultSet executeSQLQuery(String sql){
+    
+    public ResultSet executeSQLQuery(String sql) {
         ResultSet rs = null;
-        try{
+        try {
             rs = conn.createStatement().executeQuery(sql);
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return rs;
     }
-     public void insert(String sql){
-         Statement st = null;
-         try{
-             st = conn.createStatement();
-             st.executeUpdate(sql);
-             st.close();
-         }
-            catch(Exception e){
-         }
+    
+    public void insert(String sql) {
+        Statement st = null;
+        try {
+            st = conn.createStatement();
+            st.executeUpdate(sql);
+            st.close();
+        } catch(Exception e) {
+        }
     } 
 }
 

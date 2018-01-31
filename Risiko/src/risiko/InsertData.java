@@ -32,7 +32,14 @@ public class InsertData {
             System.out.println("Frage eingeben:");
             Scanner sc = new Scanner(System.in);
             String frage = sc.nextLine();
-            System.out.println("Kategorie:");
+            System.out.print("Kategorie (");
+            for (int i = 0; i < 4; i++) {
+                System.out.print(Gui.KATEGORIEN[i]);
+                if (i < 3) {
+                    System.out.print(" | ");
+                }
+            }
+            System.out.println("):");
             String kategorie = sc.nextLine();
             System.out.println("Punkte eingeben (100 | 200 | 300 | 400 | 500 | 1000):");
             int points = Integer.parseInt(sc.nextLine());
