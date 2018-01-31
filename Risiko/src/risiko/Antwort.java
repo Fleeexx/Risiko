@@ -25,7 +25,7 @@ public class Antwort {
         this.answer = answer;
     }
 
-    public boolean getIsAnswerCorrect() {
+    public boolean isAnswerCorrect() {
         return isAnswerCorrect;
     }
 

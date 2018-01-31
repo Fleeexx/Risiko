@@ -38,7 +38,7 @@ public class Core {
             // TODO
             if (antworten[r] == null) {
                 antworten[r] = antworten_list.get(i).getAnswer();
-                if (antworten_list.get(i).getIsAnswerCorrect()) {
+                if (antworten_list.get(i).isAnswerCorrect()) {
                     correctAnwser = r;
                 }
             } else {

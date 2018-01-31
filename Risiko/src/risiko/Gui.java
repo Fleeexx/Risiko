@@ -100,8 +100,8 @@ public class Gui extends JFrame implements MouseListener {
     private void initialQuestionButton(){
         b_question_question = new JLabel[4];
         /* TODO: Koordinaten der Points definieren */
-        int x = 0, y = 0, abstandY = 50,abstandX = 1;
-        int startWertX = 33, startWertY = 150;
+        int x = 0, y = 0, abstandY = 72,abstandX = 1;
+        int startWertX = 33, startWertY = 96;
         int i2 = 0;
         for (int i = 0 ; i < b_question_question.length; i++) {              
                 b_question_question[i] = new JLabel("hallo" + i);
@@ -133,7 +133,7 @@ public class Gui extends JFrame implements MouseListener {
         // initialisiert die Buttons um die Fragen aufzurufen
         b_main_points = new JLabel[4][7];
         /* TODO: Koordinaten der Points definieren */
-        int x = 0, y = 0, abstandY = 50,abstandX = 166;
+        int x = 0, y = 0, abstandY = 50,abstandX = 65 + 84;
         int startWertX = 33, startWertY = 150;
         for (int i = 0 ; i < 4; i++) {
             for (int j = 0; j < 7; j++) {

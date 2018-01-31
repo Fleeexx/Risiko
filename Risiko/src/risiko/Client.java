@@ -21,7 +21,7 @@ public class Client {
    
     public Client(){
         dbConnection = new DBConnection();
-        dbConnection.startConnection("db/chinook.db");
+        dbConnection.startConnection("risiko.db");
     }
     
     public ArrayList<Antwort> getAntworten(int id){
@@ -31,12 +31,10 @@ public class Client {
             rs = dbConnection.executeSQLQuery("SELECT * FROM antwort WHERE f_id = '" + id + "';");
         } catch(Exception e) {
         }
-            if (rs!=null) {
+            if (rs != null) {
                 try{
                     while (rs.next()) {
-                        if(rs.getString("frage") != null){
-                            antworten.add(new Antwort(rs.getString("frage"), rs.getBoolean("iscorrect")));   //besprechen wegen string
-                        }    
+                        antworten.add(new Antwort(rs.getString("antwort"), rs.getBoolean("iscorrect")));
                     }
                     rs.getStatement().close();
                     rs.close();
@@ -58,9 +56,7 @@ public class Client {
             if (rs!=null){
                 try{
                     while (rs.next()) {
-                        if(rs.getString("frage") != null) {
-                            frage = new Frage(rs.getString("kategorie"), rs.getInt("punkte"), rs.getInt("a_id"));
-                        }
+                        frage = new Frage(rs.getString("kategorie"), rs.getInt("punkte"), rs.getInt("a_id"));
                     }
                     rs.getStatement().close();
                     rs.close();
@@ -78,22 +74,22 @@ public class Client {
     public Spieler[] getTopZehn(String kategorie, int points) {
     Spieler[] spieler = new Spieler[10];
     ResultSet rs = null;
-    try{
+    try {
         rs = dbConnection.executeSQLQuery("SELECT * FROM spieler ORDER BY points DESC LIMIT 10;");
-    }catch(Exception e){  
+    } catch(Exception e) {  
     }
-        if (rs!=null){
+        if (rs!=null) {
             try{
                 int i = 0;
                 while (rs.next()) {
-                    if(rs.getString("points") != null){
+                    if(rs.getString("points") != null) {
                         spieler[i] = new Spieler(rs.getString("name"), rs.getInt("points"));
-                    }  
+                    }
                     i++;
                 }
                 rs.getStatement().close();
                 rs.close();
-            }catch(SQLException ex){
+            } catch(SQLException ex) {
                 ex.printStackTrace();
             }
         }
