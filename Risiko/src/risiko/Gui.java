@@ -192,9 +192,10 @@ public class Gui extends JFrame implements MouseListener {
                 }
             }
         }
+        
         for (int i = 0; i < 4; i++) {
             if(b_question_question[i] == me.getSource()) {
-                if (core.isPlayerAnwserCorrect(i)) {
+                if (core.istSpielerAntwortRichtig(i)) {
                     
                 }
                 p_main.setVisible(true);

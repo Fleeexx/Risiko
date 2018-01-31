@@ -20,8 +20,9 @@ public class Core {
     
     private Gui gui;
     private Client client;
-    private int correctAnwser;
+    private int gui_correctAnwser;
     private Random rnd;
+    private Spieler gui_sp;
     
     public Core() {
         gui = new Gui(this);
@@ -29,7 +30,12 @@ public class Core {
         rnd = new Random();
     }
     
-    public void givePlayerNewQuestion(int points, int kategorie) {
+    public void erstelleNeuenSpieler(String name) {
+        gui_sp = new Spieler(name);
+        
+    }
+    
+    public void gebeSpielerNeueFrage(int points, int kategorie) {
         Frage frage = client.getFrage(Gui.KATEGORIEN[kategorie], points);
         ArrayList<Antwort> antworten_list = client.getAntworten(frage.getId());
         String[] antworten = new String[4];
@@ -39,7 +45,7 @@ public class Core {
             if (antworten[r] == null) {
                 antworten[r] = antworten_list.get(i).getAnswer();
                 if (antworten_list.get(i).isAnswerCorrect()) {
-                    correctAnwser = r;
+                    gui_correctAnwser = r;
                 }
             } else {
                 i--;
@@ -51,8 +57,8 @@ public class Core {
         //setAntworten (String[])
     }
     
-    public Boolean isPlayerAnwserCorrect(int pos) {
-        return (pos == correctAnwser);
+    public Boolean istSpielerAntwortRichtig(int pos) {
+        return (pos == gui_correctAnwser);
     }
     
     
