@@ -92,7 +92,7 @@ public class Client {
     } catch(Exception e) {  
     }
         if (rs!=null) {
-            try{
+            try {
                 int i = 0;
                 while (rs.next()) {
                     if(rs.getString("points") != null) {

@@ -29,6 +29,7 @@ public class Core {
         gui = new Gui(this);
         client = new Client();
         rnd = new Random();
+        gui.getNewPlayerName(true);
     }
     
     // Spieler-Methoden

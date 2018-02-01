@@ -23,12 +23,13 @@ import javax.swing.plaf.FontUIResource;
  */
 public class Gui extends JFrame implements MouseListener {
     
-    private final String[] POINTS = new String[] {"100", "200", "300", "400", "500", "600"};
-    private final String[] FARBEN = new String[] {"_Black","_Blue","_Green","_Orange"};
-    public static final String[] KATEGORIEN = new String[] {"ETL","GEIER","LARCHER","KEVIN"};
+    private final String[] POINTS = new String[] {"100", "200", "300", "400", "500", "1000"};
+    private final String[] FARBEN = new String[] {"_Black", "_Blue", "_Green", "_Orange"};
+    public static final String[] KATEGORIEN = new String[] {"ETL", "GEIER", "LARCHER", "KEVIN"};
     private JLabel[][] b_main_points;
     private JLabel[] l_scoreboard_infos, b_question_question;
     private JLabel l_main_title, l_question_title;
+    private JButton b_newgame;
     private JPanel p_main, p_question, p_scoreboard;
     private Core core;
     
@@ -52,10 +53,13 @@ public class Gui extends JFrame implements MouseListener {
         this.add(p_main);
         p_main.setLayout(null);
         //Label setzen
-        l_main_title = new JLabel();
-        l_main_title.setBounds(20, 50, 200, 30);
-        l_main_title.setText("Risiko");
+        l_main_title = new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\images\\risiko.png"));
+        l_main_title.setBounds(20, -10, 550, 200);
         p_main.add(l_main_title);
+        b_newgame = new JButton("Neues Quiz");
+        // TODO: Button Bounds definieren!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        b_newgame.setBounds();
+        b_newgame.addMouseListener(this);
         initializeMainButtonPoints();
         p_main.setVisible(true);
     }
@@ -183,31 +187,56 @@ public class Gui extends JFrame implements MouseListener {
             l_scoreboard_infos[i].setText(werte[i]);
         }
     }
+    
+    public void resetButtonsMainPoints() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 6; j++) {
+                b_main_points[i][j].addMouseListener(this);
+            }
+        }
+    }
+    
+    public void getNewPlayerName(Boolean forced) {
+        String name = null;
+        do {
+            name = JOptionPane.showInputDialog(this, "Spielername erforderlich.\nHier Ihren Spielernamen eingeben\num das Quiz durchzuführen", "Neues Quiz starten", JOptionPane.WARNING_MESSAGE);
+            if (name != null && !name.equals("") && !name.equals(" ")) {
+                forced = false;
+            } else {
+                JOptionPane.showMessageDialog(this, "Um ein neues Quiz zu starten müssen Sie einen gültigen Spielernamen eingeben,\ndamit wir Sie evtl. in unserer Bestenliste anzeigen können!", "Neues Quiz starten", JOptionPane.ERROR_MESSAGE);
+            }
+        } while (forced);
+        core.createNeuenSpieler(name);
+        resetButtonsMainPoints();
+    }
             
     @Override
     public void mouseClicked(MouseEvent me) {
-        Object o = me.getSource();
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 6; j++) {
-                if (b_main_points[i][j] == me.getSource()) {
-                    // wenn auf eine Frage geklickt wurde
-                    p_main.setVisible(false);
-                    p_question.setVisible(true);
-                    b_main_points[i][j].removeMouseListener(this);
+        if (b_newgame == me.getSource()) {
+            // TODO: NEWGAME
+        } else {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 6; j++) {
+                    if (b_main_points[i][j] == me.getSource()) {
+                        // wenn auf eine Frage geklickt wurde
+                        p_main.setVisible(false);
+                        p_question.setVisible(true);
+                        b_main_points[i][j].removeMouseListener(this);
+                    }
                 }
             }
-        }
-        
-        for (int i = 0; i < 4; i++) {
-            if(b_question_question[i] == me.getSource()) {
-                if (core.isSpielerAntwortRichtig(i)) {
-                    core.addSpielerScore();
-                    // do some gui shit here to tell spieler that he was right
-                } else {
-                    // do some gui shit here to tell spieler that hes a boosted faggot
+
+            for (int i = 0; i < 4; i++) {
+                if (b_question_question[i] == me.getSource()) {
+                    if (core.isSpielerAntwortRichtig(i)) {
+                        core.addSpielerScore();
+                        // do some gui shit here to tell spieler that he was right
+                    } else {
+                        // do some gui shit here to tell spieler that hes a boosted faggot
+                    }
+                    p_main.setVisible(true);
+                    p_question.setVisible(false);
                 }
-                p_main.setVisible(true);
-                p_question.setVisible(false);
             }
         }
     }
