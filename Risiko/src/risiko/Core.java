@@ -23,6 +23,7 @@ public class Core {
     private int gui_correctAnwser;
     private Random rnd;
     private Spieler gui_sp;
+    private Frage gui_frage;
     
     public Core() {
         gui = new Gui(this);
@@ -31,8 +32,11 @@ public class Core {
     }
     
     // Spieler-Methoden
-    //  insertSpieler --> Neuen Spieler erstellen
-    //  saveSpieler --> den zuletzt angelegten Spieler speichern
+    //  client.insertSpieler --> Neuen Spieler erstellen
+    //  client.saveSpieler --> den zuletzt angelegten Spieler speichern
+    //  addSpielerScore --> Spieler Punkte der aktuellen Frage hinzufügen
+    //  getSpielerScore --> ~
+    //  getSpielerName --> ~
     
     
     
@@ -42,8 +46,8 @@ public class Core {
     }
     
     public void giveSpielerNeueFrage(int points, int kategorie) {
-        Frage frage = client.getFrage(Gui.KATEGORIEN[kategorie], points);
-        ArrayList<Antwort> antworten_list = client.getAntworten(frage.getId());
+        gui_frage = client.getFrage(Gui.KATEGORIEN[kategorie], points);
+        ArrayList<Antwort> antworten_list = client.getAntworten(gui_frage.getId());
         String[] antworten = new String[4];
         for (int i = 0; i < 4; i++) {
             int r = rnd.nextInt(4);
@@ -57,7 +61,7 @@ public class Core {
                 i--;
             }
         }
-        gui.setFrage(frage.getFrage());
+        gui.setFrage(gui_frage.getFrage());
         gui.setAntworten(antworten);
     }
     
@@ -65,7 +69,21 @@ public class Core {
         return (pos == gui_correctAnwser);
     }
     
+    public void addSpielerScore() {
+        gui_sp.addScore(gui_frage.getPoints());
+    }
     
+    public String getSpielerName() {
+        return gui_sp.getName();
+    }
+    
+    public int getSpielerScore() {
+        return gui_sp.getScore();
+    }
+    
+    public int getCorrectAntwort() {
+        return gui_correctAnwser;
+    }
     
     
 }

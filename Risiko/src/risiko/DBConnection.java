@@ -27,10 +27,10 @@ public class DBConnection {
         try{
             String url = "jdbc:sqlite:"  + name;
             conn = DriverManager.getConnection(url, "root", "");
-            System.out.print("Connection to SQLite has been established");
+            System.out.println("[Datenbank] Verbindung zur Datenbank wurde erfolgreich hergestellt!");
         }
         catch(SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("[Datenbank] FEHLER beim Verbinden mit der Datenbank mit folgendem Fehlercode:\n" + e.getMessage());
         }
     }
     

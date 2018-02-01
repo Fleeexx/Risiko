@@ -201,7 +201,10 @@ public class Gui extends JFrame implements MouseListener {
         for (int i = 0; i < 4; i++) {
             if(b_question_question[i] == me.getSource()) {
                 if (core.isSpielerAntwortRichtig(i)) {
-                    
+                    core.addSpielerScore();
+                    // do some gui shit here to tell spieler that he was right
+                } else {
+                    // do some gui shit here to tell spieler that hes a boosted faggot
                 }
                 p_main.setVisible(true);
                 p_question.setVisible(false);
