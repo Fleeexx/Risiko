@@ -18,7 +18,8 @@ public class Frage {
     private int id;
     private String frage;
     
-    public Frage(String kategorie, int points, int id) {
+    public Frage(String frage, String kategorie, int points, int id) {
+        this.frage = frage;
         this.kategorie = kategorie;
         this.points = points;
         this.id = id;

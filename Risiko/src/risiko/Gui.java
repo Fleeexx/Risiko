@@ -107,7 +107,7 @@ public class Gui extends JFrame implements MouseListener {
     
     public void initialScoreboardInfos() {
         //l_scoreboard_playerinfos = new JLabel("<html>"+ core.getSpielerName() + "<br>" + core.getSpielerScore() + "</html>");
-        l_scoreboard_playerinfos = new JLabel("<html>Felix<br>100</html>");
+        l_scoreboard_playerinfos = new JLabel();
         // Bounds setzen!!!!!!!!!!!!!!!!!!!
         l_scoreboard_playerinfos.setBounds(50, 20, p_scoreboard_x - 80, 50);
         l_scoreboard_playerinfos.setHorizontalAlignment(JLabel.CENTER);
@@ -133,7 +133,7 @@ public class Gui extends JFrame implements MouseListener {
         int i2 = 0;
         int stufeY = 0;
         for (int i = 0 ; i < b_question_question.length; i++) {              
-            b_question_question[i] = new JLabel("num " + i);
+            b_question_question[i] = new JLabel();
             b_question_question[i].setBounds(i * abstandX + startWertX, stufeY * abstandY + startWertY, 415, 50);
             
             //Color
@@ -175,7 +175,6 @@ public class Gui extends JFrame implements MouseListener {
                     //
                     b_main_points[i][j] = new JLabel();
                     b_main_points[i][j].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + POINTS[j - 1] + FARBEN[i] + ".png"));
-                    
                     b_main_points[i][j].addMouseListener(this);
                     b_main_points[i][j].setBounds(i * abstandX + (startWertX + abstandUmBildCentrieren), j * abstandY + startWertY, 80, 60);
                 } else {
@@ -217,8 +216,8 @@ public class Gui extends JFrame implements MouseListener {
         }
     }
        
-    public void setScore(int spielerScore){
-        l_scoreboard_playerinfos.setText("<html>Felix<br>" + spielerScore +"</html>");
+    public void setScore(String name, int score){
+        l_scoreboard_playerinfos.setText("<html>" + name + "<br>" + score +"</html>");
     }
     
     public void resetButtonsMainPoints() {
@@ -249,9 +248,10 @@ public class Gui extends JFrame implements MouseListener {
             // TODO: NEWGAME
         } else {
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 6; j++) {
+                for (int j = 1; j < 7; j++) {
                     if (b_main_points[i][j] == me.getSource()) {
                         // wenn auf eine Frage geklickt wurde
+                        core.giveSpielerNeueFrage(Integer.parseInt(POINTS[j - 1]), i);
                         p_main.setVisible(false);
                         p_question.setVisible(true);
                         b_main_points[i][j].removeMouseListener(this);
@@ -268,11 +268,12 @@ public class Gui extends JFrame implements MouseListener {
                         b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
                         b_question_question[i].setText("");
                     } else {
+                        core.removeSpielerScore();
                         b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Falsch.png"));
                         b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
                         b_question_question[i].setText("");
                     }
-                    questionButtonRemoveMouseListener(true);
+                    makeQuestionButtonClickable(true);
                     l_question_zurueck.setVisible(true);
                     core.refreshScoreboardInfo();
                     //p_main.setVisible(true);
@@ -284,27 +285,29 @@ public class Gui extends JFrame implements MouseListener {
             p_main.setVisible(true);
             p_question.setVisible(false);
             l_question_zurueck.setVisible(false);
-            questionButtonRemoveMouseListener(false);
+            makeQuestionButtonClickable(false);
         }
     }
     
-    public void questionButtonRemoveMouseListener(Boolean trueorfalse){
-        for(int i = 0; i < b_question_question.length; i++){
-            if(trueorfalse){
+    public void makeQuestionButtonClickable(Boolean disable){
+        for (int i = 0; i < b_question_question.length; i++){
+            if(disable) {
                 b_question_question[i].removeMouseListener(this);
             } else {
                 b_question_question[i].addMouseListener(this);
+                b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Antwort.png"));
+                b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
             }
             
         }
     }
     
-    public void QuestionButtonRemoveIcon(){
-        for(int i = 0; i < b_question_question.length; i++){
-            b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Antwort.png"));
-            b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
-        }
-    }
+//    public void questionButtonRemoveIcon(){
+//        for(int i = 0; i < b_question_question.length; i++){
+//            b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Antwort.png"));
+//            b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
+//        }
+//    }
 
     
 

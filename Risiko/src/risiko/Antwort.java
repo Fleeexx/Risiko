@@ -13,9 +13,9 @@ public class Antwort {
     private String answer;
     private Boolean isAnswerCorrect;
     
-    Antwort(String answer, Boolean isItTrue){
+    Antwort(String answer, Boolean isAnswerCorrect) {
         this.answer = answer;
-        
+        this.isAnswerCorrect = isAnswerCorrect;
     }
     public String getAnswer() {
         return answer;
@@ -25,7 +25,7 @@ public class Antwort {
         this.answer = answer;
     }
 
-    public boolean isAnswerCorrect() {
+    public Boolean isAnswerCorrect() {
         return isAnswerCorrect;
     }
 

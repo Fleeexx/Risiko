@@ -58,7 +58,7 @@ public class Client {
             if (rs!=null){
                 try{
                     while (rs.next()) {
-                        frage = new Frage(rs.getString("kategorie"), rs.getInt("punkte"), rs.getInt("a_id"));
+                        frage = new Frage(rs.getString("frage"), rs.getString("kategorie"), rs.getInt("points"), rs.getInt("f_id"));
                     }
                     rs.getStatement().close();
                     rs.close();
@@ -74,9 +74,10 @@ public class Client {
         int id = -1;
        try {
            rs.next();
-           id = rs.getInt(id);
+           id = rs.getInt("id");
        } catch (SQLException ex) {
        }
+        System.out.println(id);
         dbConnection.insert("UPDATE spieler SET score = " + spieler.getScore() + " WHERE s_id = " + id + ";");
     }
     

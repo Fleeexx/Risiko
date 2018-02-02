@@ -20,7 +20,7 @@ public class Core {
     
     private Gui gui;
     private Client client;
-    private int gui_correctAnwser;
+    private int gui_correctAnswer;
     private Random rnd;
     private Spieler gui_sp;
     private Frage gui_frage;
@@ -57,7 +57,7 @@ public class Core {
             if (antworten[r] == null) {
                 antworten[r] = antworten_list.get(i).getAnswer();
                 if (antworten_list.get(i).isAnswerCorrect()) {
-                    gui_correctAnwser = r;
+                    gui_correctAnswer = r;
                 }
             } else {
                 i--;
@@ -79,11 +79,12 @@ public class Core {
     }
     
     public void refreshScoreboardInfo() {
-        
+        gui.setScore(gui_sp.getName(), gui_sp.getScore());
+        gui.setScoreboardValues(getTopTenSpieler());
     }
     
     public Boolean isSpielerAntwortRichtig(int pos) {
-        return (pos == gui_correctAnwser);
+        return (pos == gui_correctAnswer);
     }
     
     public void addSpielerScore() {
@@ -92,7 +93,7 @@ public class Core {
     }
     
     public void removeSpielerScore() {
-        gui_sp.addScore((int) (gui_frage.getPoints() * 0.25));
+        gui_sp.addScore((int) (gui_frage.getPoints() * -0.25));
         client.saveSpieler(gui_sp);
     }
     
@@ -105,7 +106,7 @@ public class Core {
     }
     
     public int getCorrectAntwort() {
-        return gui_correctAnwser;
+        return gui_correctAnswer;
     }
     
     
