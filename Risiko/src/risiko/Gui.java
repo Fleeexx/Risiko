@@ -180,7 +180,7 @@ public class Gui extends JFrame implements MouseListener {
                     b_main_points[i][j].setBounds(i * abstandX + (startWertX + abstandUmBildCentrieren), j * abstandY + startWertY, 80, 60);
                 } else {
                     b_main_points[i][j] = new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + KATEGORIEN[i] + ".png"));
-                    b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY, 230, 122);
+                    b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY - 65, 230, 122);
                 }                   
                 
                 b_main_points[i][j].setForeground(Color.red);               
