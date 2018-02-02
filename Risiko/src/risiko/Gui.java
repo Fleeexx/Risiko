@@ -84,7 +84,7 @@ public class Gui extends JFrame implements MouseListener {
         //labelmitfragensetzen
         l_question_zurueck = new JLabel("", JLabel.CENTER);
         l_question_zurueck.addMouseListener(this);
-        l_question_zurueck.setVisible(true);
+        l_question_zurueck.setVisible(false);
         l_question_zurueck.setBackground(Color.red);
         l_question_zurueck.setOpaque(true);
         l_question_zurueck.setBounds(50, 550, 200, 50);
@@ -271,11 +271,37 @@ public class Gui extends JFrame implements MouseListener {
                         b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
                         b_question_question[i].setText("");
                     }
+                    questionButtonRemoveMouseListener(true);
+                    l_question_zurueck.setVisible(true);
                     core.refreshScoreboardInfo();
                     //p_main.setVisible(true);
                     //p_question.setVisible(false);
                 }
             }
+        }
+        if(l_question_zurueck == me.getSource()){
+            p_main.setVisible(true);
+            p_question.setVisible(false);
+            l_question_zurueck.setVisible(false);
+            questionButtonRemoveMouseListener(false);
+        }
+    }
+    
+    public void questionButtonRemoveMouseListener(Boolean trueorfalse){
+        for(int i = 0; i < b_question_question.length; i++){
+            if(trueorfalse){
+                b_question_question[i].removeMouseListener(this);
+            }
+            else{
+                b_question_question[i].addMouseListener(this);
+            }
+            
+        }
+    }
+    
+    public void QuestionButtonRemoveIcon(){
+        for(int i = 0; i < b_question_question.length; i++){
+            b_question_question[i].setIcon(null);
         }
     }
 
