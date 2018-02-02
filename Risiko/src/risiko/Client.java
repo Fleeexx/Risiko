@@ -84,20 +84,18 @@ public class Client {
         dbConnection.insert("INSERT INTO spieler (score, name) VALUES (" + spieler.getScore() + ", '" + spieler.getName() + "');");
     }
     
-    public Spieler[] getTopZehn(String kategorie, int points) {
+    public Spieler[] getTopZehn() {
     Spieler[] spieler = new Spieler[10];
     ResultSet rs = null;
     try {
-        rs = dbConnection.executeSQLQuery("SELECT * FROM spieler ORDER BY points DESC LIMIT 10;");
+        rs = dbConnection.executeSQLQuery("SELECT * FROM spieler ORDER BY score DESC LIMIT 10;");
     } catch(Exception e) {  
     }
         if (rs!=null) {
             try {
                 int i = 0;
                 while (rs.next()) {
-                    if(rs.getString("points") != null) {
-                        spieler[i] = new Spieler(rs.getString("name"), rs.getInt("points"));
-                    }
+                    spieler[i] = new Spieler(rs.getString("name"), rs.getInt("score"));
                     i++;
                 }
                 rs.getStatement().close();

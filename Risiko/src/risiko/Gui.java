@@ -25,10 +25,10 @@ public class Gui extends JFrame implements MouseListener {
     
     private final String[] POINTS = new String[] {"100", "200", "300", "400", "500", "1000"};
     private final String[] FARBEN = new String[] {"_Black", "_Blue", "_Green", "_Orange"};
-    public static final String[] KATEGORIEN = new String[] {"ETL", "GEIER", "LARCHER", "KEVIN"};
+    public static final String[] KATEGORIEN = new String[] {"Computergrundlagen", "IT-Security", "Onlinegrundlagen", "Elektrotechnik"};
     private JLabel[][] b_main_points;
-    private JLabel[] l_scoreboard_infos, b_question_question;
-    private JLabel l_main_title, l_question_title;
+    private JLabel[] l_scoreboard_topten, b_question_question;
+    private JLabel l_main_title, l_question_title, l_scoreboard_playerinfos;
     private JButton b_newgame;
     private JPanel p_main, p_question, p_scoreboard;
     private Core core;
@@ -91,21 +91,25 @@ public class Gui extends JFrame implements MouseListener {
     }
     
     public void initialScoreboardInfos() {
-        l_scoreboard_infos = new JLabel[15];
+        l_scoreboard_playerinfos = new JLabel("<html>Felix<br>1000</html>");
+        // Bounds setzen!!!!!!!!!!!!!!!!!!!
+        l_scoreboard_playerinfos.setBounds(10, 0, 100, 50);
+        l_scoreboard_playerinfos.setHorizontalAlignment(JLabel.CENTER);
+        p_scoreboard.add(l_scoreboard_playerinfos);
+        l_scoreboard_topten = new JLabel[10];
         int startwertX = 30, verschiebungX = 20;
-        for (int i = 0; i < l_scoreboard_infos.length; i++){
+        for (int i = 0; i < l_scoreboard_topten.length; i++){
             if (i >= 10) {
                 verschiebungX = 30;
             }
-            l_scoreboard_infos[i] = new JLabel("hhhh" + i);
-            l_scoreboard_infos[i].setBounds(10, i * verschiebungX + startwertX, 180, 20);
-            p_scoreboard.add(l_scoreboard_infos[i]);
+            l_scoreboard_topten[i] = new JLabel("-");
+            l_scoreboard_topten[i].setBounds(10, i * verschiebungX + startwertX, 180, 20);
+            p_scoreboard.add(l_scoreboard_topten[i]);
         }
     }
     
     private void initialQuestionButton() {
         b_question_question = new JLabel[4];
-        /* TODO: Koordinaten der Points definieren */
         int x = 0, y = 0, abstandY = 50,abstandX = 1;
         int startWertX = 33, startWertY = 150;
         int i2 = 0;
@@ -139,7 +143,6 @@ public class Gui extends JFrame implements MouseListener {
     private void initializeMainButtonPoints() {
         // initialisiert die Buttons um die Fragen aufzurufen
         b_main_points = new JLabel[4][7];
-        /* TODO: Koordinaten der Points definieren */
         int x = 0, y = 0, abstandY = 60,abstandX = 84+66;
         int startWertX = 33, startWertY = 180;
         for (int i = 0 ; i < 4; i++) {
@@ -150,10 +153,12 @@ public class Gui extends JFrame implements MouseListener {
                     b_main_points[i][j] = new JLabel();
                     b_main_points[i][j].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + POINTS[j - 1] + FARBEN[i] + ".png"));
                     b_main_points[i][j].addMouseListener(this);
+                    b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY, 80, 60);
                 } else {
-                    b_main_points[i][j] = new JLabel(KATEGORIEN[i]);
+                    b_main_points[i][j] = new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + KATEGORIEN[i] + ".png"));
+                    b_main_points[i][j].setBounds(i * abstandX + (startWertX - 40), j * abstandY + (startWertY - 40), 230, 122);
                 }                   
-                b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY, 80, 60);
+                
                 b_main_points[i][j].setForeground(Color.red);               
                 p_main.add(b_main_points[i][j]);
             }
@@ -183,8 +188,8 @@ public class Gui extends JFrame implements MouseListener {
     }
     
     public void setScoreboardValues(String[] werte) {
-        for(int i = 0; i < l_scoreboard_infos.length; i++){
-            l_scoreboard_infos[i].setText(werte[i]);
+        for(int i = 0; i < werte.length; i++){
+            l_scoreboard_topten[i].setText(werte[i]);
         }
     }
     
@@ -234,6 +239,7 @@ public class Gui extends JFrame implements MouseListener {
                     } else {
                         // do some gui shit here to tell spieler that hes a boosted faggot
                     }
+                    core.refreshScoreboardInfo();
                     p_main.setVisible(true);
                     p_question.setVisible(false);
                 }

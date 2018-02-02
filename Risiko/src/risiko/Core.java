@@ -29,6 +29,7 @@ public class Core {
         gui = new Gui(this);
         client = new Client();
         rnd = new Random();
+        gui.setScoreboardValues(getTopTenSpieler());
         gui.getNewPlayerName(true);
     }
     
@@ -66,12 +67,33 @@ public class Core {
         gui.setAntworten(antworten);
     }
     
+    public String[] getTopTenSpieler() {
+        Spieler[] topten_sp = client.getTopZehn();
+        String[] topten = new String[topten_sp.length];
+        for (int i = 0; i < topten_sp.length; i++) {
+            if (topten_sp[i] != null) {
+                topten[i] = topten_sp[i].getName() + "\t\t" + topten_sp[i].getScore();
+            }
+        }
+        return topten;
+    }
+    
+    public void refreshScoreboardInfo() {
+        
+    }
+    
     public Boolean isSpielerAntwortRichtig(int pos) {
         return (pos == gui_correctAnwser);
     }
     
     public void addSpielerScore() {
         gui_sp.addScore(gui_frage.getPoints());
+        client.saveSpieler(gui_sp);
+    }
+    
+    public void removeSpielerScore() {
+        gui_sp.addScore((int) (gui_frage.getPoints() * 0.25));
+        client.saveSpieler(gui_sp);
     }
     
     public String getSpielerName() {
