@@ -292,8 +292,7 @@ public class Gui extends JFrame implements MouseListener {
         for(int i = 0; i < b_question_question.length; i++){
             if(trueorfalse){
                 b_question_question[i].removeMouseListener(this);
-            }
-            else{
+            } else {
                 b_question_question[i].addMouseListener(this);
             }
             
