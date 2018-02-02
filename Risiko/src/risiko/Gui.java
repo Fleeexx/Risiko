@@ -28,10 +28,11 @@ public class Gui extends JFrame implements MouseListener {
     public static final String[] KATEGORIEN = new String[] {"Computergrundlagen", "IT-Security", "Onlinegrundlagen", "Elektrotechnik"};
     private JLabel[][] b_main_points;
     private JLabel[] l_scoreboard_topten, b_question_question;
-    private JLabel l_main_title, l_question_title, l_scoreboard_playerinfos;
+    private JLabel l_main_title, l_question_title, l_scoreboard_playerinfos, l_question_zurueck;
     private JButton b_newgame;
     private JPanel p_main, p_question, p_scoreboard;
     private Core core;
+    private final int p_main_x = 980, height_frame = 700, p_scoreboard_x = 300;
     
     public Gui(Core core) {
         this.core = core;
@@ -49,7 +50,7 @@ public class Gui extends JFrame implements MouseListener {
     public void initializePanelMain() {
         //Panel
         p_main = new JPanel();
-        p_main.setBounds(0, 0, 598, 600);
+        p_main.setBounds(0, 0, p_main_x, height_frame);
         this.add(p_main);
         p_main.setLayout(null);
         //Label setzen
@@ -67,22 +68,34 @@ public class Gui extends JFrame implements MouseListener {
     public void initializePanelQuestion() {
         //Panel
         p_question = new JPanel();
-        p_question.setBounds(0, 0, 598, 600);
+        p_question.setBounds(0, 0, p_main_x, height_frame);
         this.add(p_question);
         p_question.setLayout(null);
         p_question.setVisible(false);
         //Label Frage
-        l_question_title = new JLabel("-");
-        l_question_title.setBounds(40, 50, 400, 30);
+        l_question_title = new JLabel("Hallo...Dies ist eine Frage",JLabel.CENTER);
+        
+        l_question_title.setBackground(Color.red);
+        l_question_title.setOpaque(true);
+        //l_question_title.setHorizontalAlignment(SwingConstants.CENTER);
+        //l_question_title.setVerticalAlignment(SwingConstants.CENTER);
+        l_question_title.setBounds(50, 110, 880, 50);
         p_question.add(l_question_title);
         //labelmitfragensetzen
+        l_question_zurueck = new JLabel("", JLabel.CENTER);
+        l_question_zurueck.addMouseListener(this);
+        l_question_zurueck.setVisible(true);
+        l_question_zurueck.setBackground(Color.red);
+        l_question_zurueck.setOpaque(true);
+        l_question_zurueck.setBounds(50, 550, 200, 50);
+        p_question.add(l_question_zurueck);
         initialQuestionButton();
     }
     
     public void initializePanelScoreboard() {
         //Panel
         p_scoreboard = new JPanel();
-        p_scoreboard.setBounds(598, 0, 200, 600);
+        p_scoreboard.setBounds(p_main_x, 0, p_scoreboard_x, height_frame);
         this.add(p_scoreboard);
         p_scoreboard.setLayout(null);
         p_scoreboard.setVisible(true);
@@ -91,38 +104,46 @@ public class Gui extends JFrame implements MouseListener {
     }
     
     public void initialScoreboardInfos() {
-        l_scoreboard_playerinfos = new JLabel("<html>Felix<br>1000</html>");
+        //l_scoreboard_playerinfos = new JLabel("<html>"+ core.getSpielerName() + "<br>" + core.getSpielerScore() + "</html>");
+        l_scoreboard_playerinfos = new JLabel("<html>Felix<br>100</html>");
         // Bounds setzen!!!!!!!!!!!!!!!!!!!
-        l_scoreboard_playerinfos.setBounds(10, 0, 100, 50);
+        l_scoreboard_playerinfos.setBounds(50, 20, p_scoreboard_x - 80, 50);
         l_scoreboard_playerinfos.setHorizontalAlignment(JLabel.CENTER);
         p_scoreboard.add(l_scoreboard_playerinfos);
         l_scoreboard_topten = new JLabel[10];
-        int startwertX = 30, verschiebungX = 20;
+        int startwertY = 100, verschiebungY = 40;
+        int startwertX = 10; 
         for (int i = 0; i < l_scoreboard_topten.length; i++){
             if (i >= 10) {
-                verschiebungX = 30;
+                verschiebungY += 30;
             }
             l_scoreboard_topten[i] = new JLabel("-");
-            l_scoreboard_topten[i].setBounds(10, i * verschiebungX + startwertX, 180, 20);
+            l_scoreboard_topten[i].setBounds(startwertX, i * verschiebungY + startwertY, p_scoreboard_x - 20, 20);
             p_scoreboard.add(l_scoreboard_topten[i]);
         }
     }
+
     
     private void initialQuestionButton() {
         b_question_question = new JLabel[4];
-        int x = 0, y = 0, abstandY = 50,abstandX = 1;
-        int startWertX = 33, startWertY = 150;
+        int x = 0, y = 0, abstandY = 120 + 30,abstandX = 415 + 50;
+        int startWertX = 50, startWertY = 250;
         int i2 = 0;
+        int stufeY = 0;
         for (int i = 0 ; i < b_question_question.length; i++) {              
-            b_question_question[i] = new JLabel("num " + i);
-            b_question_question[i].setBounds(i * abstandX + startWertX, i * abstandY + startWertY, 84, 30);
+            b_question_question[i] = new JLabel("num " + i, SwingConstants.CENTER);
+            b_question_question[i].setBounds(i * abstandX + startWertX, stufeY * abstandY + startWertY, 415, 50);
+            
+            //Color
+            b_question_question[i].setBackground(Color.red);
+            b_question_question[i].setOpaque(true);
             b_question_question[i].addMouseListener(this);
             b_question_question[i].setForeground(Color.red);               
             p_question.add(b_question_question[i]);
-            if (i >= 2){
-                abstandX = 150;                   
-                b_question_question[i].setBounds(1 * abstandX + startWertX, i2 * abstandY + startWertY, 84, 30);
-                i2 = 1;
+            if (i >= 2){  
+                stufeY++;
+                b_question_question[i].setBounds( i2 * abstandX + startWertX,abstandY + startWertY, 415, 50);
+                i2++;
             }     
         }
     }
@@ -132,7 +153,7 @@ public class Gui extends JFrame implements MouseListener {
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension d = t.getScreenSize();
         setLayout(null);
-        int w = 798, h = 600;
+        int w = p_main_x + p_scoreboard_x, h = height_frame;
         int x = (int) ((d.getWidth() - w) / 2);
         int y = (int) ((d.getHeight()- h) / 2);
         setBounds(x, y, w, h);
@@ -143,8 +164,9 @@ public class Gui extends JFrame implements MouseListener {
     private void initializeMainButtonPoints() {
         // initialisiert die Buttons um die Fragen aufzurufen
         b_main_points = new JLabel[4][7];
-        int x = 0, y = 0, abstandY = 60,abstandX = 84+66;
-        int startWertX = 33, startWertY = 180;
+        int x = 0, y = 0, abstandY = 60,abstandX = 240;
+        int startWertX = 10, startWertY = 230;
+        int abstandUmBildCentrieren = (abstandX - 84) / 2;
         for (int i = 0 ; i < 4; i++) {
             for (int j = 0; j < 7; j++) {
                 if (j > 0) {
@@ -152,11 +174,12 @@ public class Gui extends JFrame implements MouseListener {
                     //
                     b_main_points[i][j] = new JLabel();
                     b_main_points[i][j].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + POINTS[j - 1] + FARBEN[i] + ".png"));
+                    
                     b_main_points[i][j].addMouseListener(this);
-                    b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY, 80, 60);
+                    b_main_points[i][j].setBounds(i * abstandX + (startWertX + abstandUmBildCentrieren), j * abstandY + startWertY, 80, 60);
                 } else {
                     b_main_points[i][j] = new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + KATEGORIEN[i] + ".png"));
-                    b_main_points[i][j].setBounds(i * abstandX + (startWertX - 40), j * abstandY + (startWertY - 40), 230, 122);
+                    b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY, 230, 122);
                 }                   
                 
                 b_main_points[i][j].setForeground(Color.red);               
@@ -191,6 +214,10 @@ public class Gui extends JFrame implements MouseListener {
         for(int i = 0; i < werte.length; i++){
             l_scoreboard_topten[i].setText(werte[i]);
         }
+    }
+       
+    public void setScore(int spielerScore){
+        l_scoreboard_playerinfos.setText("<html>Felix<br>" + spielerScore +"</html>");
     }
     
     public void resetButtonsMainPoints() {
@@ -227,6 +254,7 @@ public class Gui extends JFrame implements MouseListener {
                         p_main.setVisible(false);
                         p_question.setVisible(true);
                         b_main_points[i][j].removeMouseListener(this);
+                        b_main_points[i][j].setVisible(false);
                     }
                 }
             }
@@ -235,13 +263,17 @@ public class Gui extends JFrame implements MouseListener {
                 if (b_question_question[i] == me.getSource()) {
                     if (core.isSpielerAntwortRichtig(i)) {
                         core.addSpielerScore();
-                        // do some gui shit here to tell spieler that he was right
+                        b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Richtig.png"));
+                        b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
+                        b_question_question[i].setText("");
                     } else {
-                        // do some gui shit here to tell spieler that hes a boosted faggot
+                        b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Falsch.png"));
+                        b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
+                        b_question_question[i].setText("");
                     }
                     core.refreshScoreboardInfo();
-                    p_main.setVisible(true);
-                    p_question.setVisible(false);
+                    //p_main.setVisible(true);
+                    //p_question.setVisible(false);
                 }
             }
         }
