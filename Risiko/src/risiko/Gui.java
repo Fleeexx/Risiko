@@ -55,7 +55,7 @@ public class Gui extends JFrame implements MouseListener {
         p_main.setLayout(null);
         //Label setzen
         l_main_title = new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\images\\risiko.png"));
-        l_main_title.setBounds(20, -10, 550, 200);
+        l_main_title.setBounds(215, -10, 550, 200);
         p_main.add(l_main_title);
         b_newgame = new JButton("Neues Quiz");
         // TODO: Button Bounds definieren!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -180,7 +180,7 @@ public class Gui extends JFrame implements MouseListener {
                     b_main_points[i][j].setBounds(i * abstandX + (startWertX + abstandUmBildCentrieren), j * abstandY + startWertY, 80, 60);
                 } else {
                     b_main_points[i][j] = new JLabel(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + KATEGORIEN[i] + ".png"));
-                    b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY - 65, 230, 122);
+                    b_main_points[i][j].setBounds(i * abstandX + startWertX, j * abstandY + startWertY - 55, 230, 122);
                 }                   
                 
                 b_main_points[i][j].setForeground(Color.red);               
