@@ -31,7 +31,7 @@ public class Gui extends JFrame implements MouseListener {
     private JLabel[] l_scoreboard_topten, b_question_question;
     private JLabel l_main_title, l_question_title, l_scoreboard_playerinfos, l_question_zurueck, l_scoreboard_Topten_image;
     private JButton b_newgame;
-    private JPanel p_main, p_question, p_scoreboard,p_scoreboard_background;
+    private JPanel p_main, p_question, p_scoreboard;
     private Core core;
     private final int p_main_x = 980, height_frame = 700, p_scoreboard_x = 300;
     
@@ -42,7 +42,7 @@ public class Gui extends JFrame implements MouseListener {
         
         initializePanelQuestion();
         initializePanelScoreboard();
-        initializePanelScoreboardBackground();
+        initializeScoreboardBackground();
         setVisible(true);
     }
     
@@ -50,7 +50,7 @@ public class Gui extends JFrame implements MouseListener {
         Core core = new Core();
     }
     
-    public void initializePanelScoreboardBackground(){
+    public void initializeScoreboardBackground(){
         
 
 
