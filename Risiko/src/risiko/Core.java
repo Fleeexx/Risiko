@@ -31,6 +31,7 @@ public class Core {
         rnd = new Random();
         gui.setScoreboardValues(getTopTenSpieler());
         gui.getNewPlayerName(true);
+        refreshScoreboardInfo();
     }
     
     // Spieler-Methoden
