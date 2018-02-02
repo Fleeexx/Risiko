@@ -4,6 +4,7 @@ package risiko;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -28,9 +29,9 @@ public class Gui extends JFrame implements MouseListener {
     public static final String[] KATEGORIEN = new String[] {"Computergrundlagen", "IT-Security", "Onlinegrundlagen", "Elektrotechnik"};
     private JLabel[][] b_main_points;
     private JLabel[] l_scoreboard_topten, b_question_question;
-    private JLabel l_main_title, l_question_title, l_scoreboard_playerinfos, l_question_zurueck;
+    private JLabel l_main_title, l_question_title, l_scoreboard_playerinfos, l_question_zurueck, l_scoreboard_Topten_image;
     private JButton b_newgame;
-    private JPanel p_main, p_question, p_scoreboard;
+    private JPanel p_main, p_question, p_scoreboard,p_scoreboard_background;
     private Core core;
     private final int p_main_x = 980, height_frame = 700, p_scoreboard_x = 300;
     
@@ -38,13 +39,28 @@ public class Gui extends JFrame implements MouseListener {
         this.core = core;
         initializeFrameMain();
         initializePanelMain();
+        
         initializePanelQuestion();
         initializePanelScoreboard();
+        initializePanelScoreboardBackground();
         setVisible(true);
     }
     
     public static void main(String[] args) {
         Core core = new Core();
+    }
+    
+    public void initializePanelScoreboardBackground(){
+        
+
+
+
+        
+
+        l_scoreboard_Topten_image = new JLabel();
+        p_scoreboard.add(l_scoreboard_Topten_image);
+        l_scoreboard_Topten_image.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\TopTen.png"));
+        l_scoreboard_Topten_image.setBounds(0, 100, 300, 600);
     }
     
     public void initializePanelMain() {
@@ -111,15 +127,21 @@ public class Gui extends JFrame implements MouseListener {
         // Bounds setzen!!!!!!!!!!!!!!!!!!!
         l_scoreboard_playerinfos.setBounds(50, 20, p_scoreboard_x - 80, 50);
         l_scoreboard_playerinfos.setHorizontalAlignment(JLabel.CENTER);
+        
+        
+        
+        
         p_scoreboard.add(l_scoreboard_playerinfos);
         l_scoreboard_topten = new JLabel[10];
-        int startwertY = 100, verschiebungY = 40;
-        int startwertX = 10; 
+        int startwertY = 327, verschiebungY = 24;
+        int startwertX = 50; 
         for (int i = 0; i < l_scoreboard_topten.length; i++){
             if (i >= 10) {
                 verschiebungY += 30;
             }
+            
             l_scoreboard_topten[i] = new JLabel("-");
+            l_scoreboard_topten[i].setFont(new Font("Segoe UI", Font.PLAIN, 16));
             l_scoreboard_topten[i].setBounds(startwertX, i * verschiebungY + startwertY, p_scoreboard_x - 20, 20);
             p_scoreboard.add(l_scoreboard_topten[i]);
         }

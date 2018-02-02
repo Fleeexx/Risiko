@@ -73,7 +73,7 @@ public class Core {
         String[] topten = new String[topten_sp.length];
         for (int i = 0; i < topten_sp.length; i++) {
             if (topten_sp[i] != null) {
-                topten[i] = (i + 1) + ". " + topten_sp[i].getName() + "   "+ topten_sp[i].getScore();
+                topten[i] =topten_sp[i].getName() + "   "+ topten_sp[i].getScore();
             }
         }
         return topten;
