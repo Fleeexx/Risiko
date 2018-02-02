@@ -74,7 +74,8 @@ public class Gui extends JFrame implements MouseListener {
         p_question.setVisible(false);
         //Label Frage
         l_question_title = new JLabel("Hallo...Dies ist eine Frage",JLabel.CENTER);
-        
+        l_question_title.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Frage.png"));
+        l_question_title.setHorizontalTextPosition(JLabel.CENTER);
         l_question_title.setBackground(Color.red);
         l_question_title.setOpaque(true);
         //l_question_title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -88,6 +89,7 @@ public class Gui extends JFrame implements MouseListener {
         l_question_zurueck.setBackground(Color.red);
         l_question_zurueck.setOpaque(true);
         l_question_zurueck.setBounds(50, 550, 200, 50);
+        l_question_zurueck.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Zurueck.png"));
         p_question.add(l_question_zurueck);
         initialQuestionButton();
     }
@@ -131,14 +133,13 @@ public class Gui extends JFrame implements MouseListener {
         int i2 = 0;
         int stufeY = 0;
         for (int i = 0 ; i < b_question_question.length; i++) {              
-            b_question_question[i] = new JLabel("num " + i, SwingConstants.CENTER);
+            b_question_question[i] = new JLabel("num " + i);
             b_question_question[i].setBounds(i * abstandX + startWertX, stufeY * abstandY + startWertY, 415, 50);
             
             //Color
-            b_question_question[i].setBackground(Color.red);
-            b_question_question[i].setOpaque(true);
-            b_question_question[i].addMouseListener(this);
-            b_question_question[i].setForeground(Color.red);               
+            b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Antwort.png"));
+            b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
+            b_question_question[i].addMouseListener(this);              
             p_question.add(b_question_question[i]);
             if (i >= 2){  
                 stufeY++;
@@ -301,7 +302,8 @@ public class Gui extends JFrame implements MouseListener {
     
     public void QuestionButtonRemoveIcon(){
         for(int i = 0; i < b_question_question.length; i++){
-            b_question_question[i].setIcon(null);
+            b_question_question[i].setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\Antwort.png"));
+            b_question_question[i].setHorizontalTextPosition(JLabel.CENTER);
         }
     }
 
